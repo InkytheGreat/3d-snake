@@ -11,6 +11,7 @@ class GameRenderer {
         this.cameraOffset = new THREE.Vector3(10, 10, 10); // Isometric offset
         this.controls = null; // OrbitControls instance
         this.gameOverText = null; // Element to display "Game Over" text
+        this.controlsInfoWindow = null; // Element to display controls information
 
         this.initializeScene();
         this.createUI();
@@ -161,6 +162,49 @@ class GameRenderer {
         this.gameOverText.style.display = 'none'; // Initially hidden
         this.gameOverText.textContent = 'Game Over';
         document.body.appendChild(this.gameOverText);
+
+        // Add controls information window
+        this.controlsInfoWindow = document.createElement('div');
+        this.controlsInfoWindow.style.position = 'absolute';
+        this.controlsInfoWindow.style.top = '20%';
+        this.controlsInfoWindow.style.left = '50%';
+        this.controlsInfoWindow.style.transform = 'translate(-50%, -50%)';
+        this.controlsInfoWindow.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        this.controlsInfoWindow.style.color = 'white';
+        this.controlsInfoWindow.style.padding = '20px';
+        this.controlsInfoWindow.style.borderRadius = '10px';
+        this.controlsInfoWindow.style.fontFamily = 'Arial, sans-serif';
+        this.controlsInfoWindow.style.fontSize = '16px';
+        this.controlsInfoWindow.style.display = 'none'; // Initially hidden
+        this.controlsInfoWindow.innerHTML = `
+            <h2>Controls</h2>
+            <p><strong>Q:</strong> Move down</p>
+            <p><strong>E:</strong> Move up</p>
+            <p><strong>W:</strong> Move forward (relative to the green side)</p>
+            <p><strong>A:</strong> Move left (relative to the green side)</p>
+            <p><strong>S:</strong> Move backward (relative to the green side)</p>
+            <p><strong>D:</strong> Move right (relative to the green side)</p>
+            <p><strong>Space:</strong> Hold to triple the snake's speed</p>
+            <p><strong>R:</strong> Reset the game</p>
+            <p><strong>I:</strong> Toggle this controls window</p>
+        `;
+        document.body.appendChild(this.controlsInfoWindow);
+
+        // Add "Press I for Controls" information
+        const controlsHint = document.createElement('div');
+        controlsHint.style.marginTop = '10px';
+        controlsHint.style.color = 'white';
+        controlsHint.style.fontFamily = 'Arial, sans-serif';
+        controlsHint.style.fontSize = '14px';
+        controlsHint.textContent = 'Press i for Controls Information';
+        this.uiContainer.appendChild(controlsHint);
+    }
+
+    toggleControlsInfo() {
+        if (this.controlsInfoWindow) {
+            this.controlsInfoWindow.style.display =
+                this.controlsInfoWindow.style.display === 'none' ? 'block' : 'none';
+        }
     }
 
     updateUI(score, length, position) {
@@ -369,6 +413,9 @@ class InputHandler {
             }
             if (event.code === "KeyR") {
                 window.dispatchEvent(new Event("resetGame"));
+            }
+            if (event.code === "KeyI") {
+                gameRenderer.toggleControlsInfo(); // Toggle controls info window
             }
         });
 
