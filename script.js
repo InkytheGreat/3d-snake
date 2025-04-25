@@ -8,7 +8,7 @@ class GameRenderer {
         this.renderer = new THREE.WebGLRenderer();
         this.score = 0;
         this.gameOver = false;
-        this.cameraOffset = new THREE.Vector3(10, 10, 10); // Isometric offset
+        this.cameraOffset = new THREE.Vector3(10, 10, 10);
         this.controls = null; // OrbitControls instance
         this.gameOverText = null; // Element to display "Game Over" text
         this.controlsInfoWindow = null; // Element to display controls information
@@ -27,30 +27,30 @@ class GameRenderer {
         this.camera.lookAt(10, 10, 10); // Center the camera on the middle of the arena
 
         // Add an ambient light for minimum lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Increased intensity to 0.5
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         this.scene.add(ambientLight);
 
         // Add a point light for dynamic lighting
-        const pointLight = new THREE.PointLight(0xffffff, 15, 50); // Increased intensity to 15
+        const pointLight = new THREE.PointLight(0xffffff, 15, 50);
         pointLight.position.set(10, 15, 10); // Position above the center of the arena
-        pointLight.castShadow = true; // Enable shadow casting
+        pointLight.castShadow = true;
         this.scene.add(pointLight);
 
         // Add a spotlight for focused lighting
-        const spotLight = new THREE.SpotLight(0xffa500, 30); // Increased intensity to 30
+        const spotLight = new THREE.SpotLight(0xffa500, 30);
         spotLight.position.set(15, 25, 15); // Position above and to the side
         spotLight.angle = Math.PI / 6; // Narrow beam
         spotLight.penumbra = 0.3; // Soft edges
-        spotLight.castShadow = true; // Enable shadow casting
+        spotLight.castShadow = true;
         this.scene.add(spotLight);
 
         // Add a ground plane to receive shadows
         const planeGeometry = new THREE.PlaneGeometry(20, 20);
         const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x008800 }); // Green color
         const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.rotation.x = -Math.PI / 2; // Rotate to make it horizontal
-        plane.position.set(10, 0, 10); // Center the plane under the 0-20 x,z range
-        plane.receiveShadow = true; // Enable shadow receiving
+        plane.rotation.x = -Math.PI / 2;
+        plane.position.set(10, 0, 10);
+        plane.receiveShadow = true;
         this.scene.add(plane);
 
         // Add border lines for the y,z, x,y, x,z, and z=20 planes
@@ -242,11 +242,6 @@ class GameRenderer {
         if (this.gameOverText) {
             this.gameOverText.style.display = 'none';
         }
-    }
-
-    updateCamera(targetPosition) {
-        // Remove camera updates tied to the snake's position
-        // Camera remains freely controlled by the user
     }
 }
 
@@ -451,11 +446,11 @@ function resetGame() {
     lastMoveTime = 0; // Reset the last move time to ensure proper timing
 }
 
-let lastMoveTime = 0; // Track the last time the snake moved
+let lastMoveTime = 0;
 const moveInterval = 1000; // Snake moves once per second (1000ms)
 
 function animate(time) {
-    const currentMoveInterval = inputHandler.isSpeedBoostActive ? moveInterval / 3 : moveInterval; // Halve the interval if speed boost is active
+    const currentMoveInterval = inputHandler.isSpeedBoostActive ? moveInterval / 3 : moveInterval; // Decrease the interval if speed boost is active
 
     // Calculate time since the last move
     if (!gameRenderer.gameOver && time - lastMoveTime >= currentMoveInterval) {
