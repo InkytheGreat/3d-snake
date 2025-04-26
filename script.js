@@ -475,10 +475,8 @@ function animate(time) {
         lastMoveTime = time;
     }
 
-    // Render the scene
     gameRenderer.renderScene();
 
-    // Request the next frame
     requestAnimationFrame(animate);
 }
 
