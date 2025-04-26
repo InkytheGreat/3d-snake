@@ -185,6 +185,8 @@ class GameRenderer {
             <p><strong>S:</strong> Move backward (relative to the green side)</p>
             <p><strong>D:</strong> Move right (relative to the green side)</p>
             <p><strong>Space:</strong> Hold to triple the snake's speed</p>
+            <p><strong>Left Click:</strong> Hold to rotate camera</p>
+            <p><strong>Right Click:</strong> Hold to move camera</p>
             <p><strong>R:</strong> Reset the game</p>
             <p><strong>I:</strong> Toggle this controls window</p>
         `;
